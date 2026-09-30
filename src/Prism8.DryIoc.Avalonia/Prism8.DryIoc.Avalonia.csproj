@@ -33,7 +33,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Prism.Avalonia\Prism.Avalonia.csproj" />
+    <ProjectReference Include="..\Prism8.Avalonia\Prism8.Avalonia.csproj" />
   </ItemGroup>
 
 </Project>

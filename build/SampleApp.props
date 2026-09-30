@@ -15,7 +15,7 @@
     <PackageReference Include="Avalonia.Themes.Fluent" />
     <PackageReference Include="Avalonia.LinuxFramebuffer" />
 
-    <ProjectReference Include="$(MSBuildThisFileDirectory)..\src\Prism.DryIoc.Avalonia\Prism.DryIoc.Avalonia.csproj" />
+    <ProjectReference Include="$(MSBuildThisFileDirectory)..\src\Prism8.DryIoc.Avalonia\Prism8.DryIoc.Avalonia.csproj" />
   </ItemGroup>
 
 </Project>

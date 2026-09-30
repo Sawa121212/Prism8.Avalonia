@@ -8,7 +8,7 @@
   <Import Project="../../build/SampleApp.props" />
   
   <ItemGroup>
-    <ProjectReference Include="..\..\src\Prism.Avalonia\Prism.Avalonia.csproj" />
+    <ProjectReference Include="..\..\src\Prism8.Avalonia\Prism8.Avalonia.csproj" />
   </ItemGroup>
   
 </Project>
