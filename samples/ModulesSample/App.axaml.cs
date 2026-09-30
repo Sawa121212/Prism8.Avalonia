@@ -22,6 +22,7 @@ namespace ModulesSample
 
         public static AppBuilder BuildAvaloniaApp()
         {
+#pragma warning disable CA1416 // Validate platform compatibility; this is only ran on Win/Linux/Mac
             var builder = AppBuilder.Configure<App>()
                 .UsePlatformDetect()
                 .With(new X11PlatformOptions
@@ -32,6 +33,7 @@ namespace ModulesSample
                 .With(new Win32PlatformOptions())
                 .UseSkia()
                 .UseManagedSystemDialogs();
+#pragma warning restore CA1416 // Validate platform compatibility
 
 #if DEBUG
             builder.LogToTrace();
@@ -54,6 +56,7 @@ namespace ModulesSample
             double GetScaling()
             {
                 var idx = Array.IndexOf(args, "--scaling");
+
                 if (idx != 0 && args.Length > idx + 1 &&
                     double.TryParse(args[idx + 1], NumberStyles.Any, CultureInfo.InvariantCulture, out var scaling))
                     return scaling;
@@ -62,6 +65,7 @@ namespace ModulesSample
             }
 
             var builder = BuildAvaloniaApp();
+
             if (args.Contains("--fbdev"))
             {
                 SilenceConsole();
@@ -81,6 +85,7 @@ namespace ModulesSample
             new Thread(() =>
             {
                 Console.CursorVisible = false;
+
                 while (true)
                     Console.ReadKey(true);
             })

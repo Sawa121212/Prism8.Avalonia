@@ -9,12 +9,6 @@
     <ProjectReference Include="..\ModulesSample.Infrastructure\ModulesSample.Infrastructure.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Compile Update="Views\DummyModuleView.axaml.cs">
-      <DependentUpon>DummyModuleView.axaml</DependentUpon>
-    </Compile>
-  </ItemGroup>
-
   <Import Project="../../build/SampleApp.props" />
 
 </Project>

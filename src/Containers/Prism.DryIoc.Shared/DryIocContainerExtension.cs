@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Linq;
 using DryIoc;
 using Prism.Ioc;
@@ -25,7 +25,6 @@ namespace Prism.DryIoc
                                                          .With(Made.Of(FactoryMethod.ConstructorWithResolvableArguments))
                                                          .WithFuncAndLazyWithoutRegistration()
                                                          .WithTrackingDisposableTransients()
-                                                         .WithoutFastExpressionCompiler()
                                                          .WithFactorySelector(Rules.SelectLastRegisteredFactory());
 
         /// <summary>

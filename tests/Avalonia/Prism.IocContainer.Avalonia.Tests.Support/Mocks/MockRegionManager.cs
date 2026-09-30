@@ -1,4 +1,5 @@
-using System;
+﻿using System;
+using Prism.Ioc;
 using Prism.Regions;
 
 namespace Prism.IocContainer.Avalonia.Tests.Support.Mocks
@@ -75,6 +76,21 @@ namespace Prism.IocContainer.Avalonia.Tests.Support.Mocks
         #endregion
 
         public bool Navigate(Uri source)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IRegionManager AddToRegion(string regionName, string viewName)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IRegionManager RegisterViewWithRegion(string regionName, string viewName)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IRegionManager RegisterViewWithRegion(string regionName, Func<IContainerProvider, object> getContentDelegate)
         {
             throw new NotImplementedException();
         }

@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 17
-VisualStudioVersion = 17.3.32611.2
+# Visual Studio Version 18
+VisualStudioVersion = 18.10.12224.181 stable
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Prism.Avalonia", "src\Prism.Avalonia\Prism.Avalonia.csproj", "{F4A9F2F0-979F-4964-8BC8-A39F4816803B}"
 EndProject
@@ -20,7 +20,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ViewDiscovery", "samples\Vi
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DummyModules", "DummyModules", "{E03DB670-BFA9-4E7B-A69C-D1E6B8E1691F}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ModulesSampleApp", "samples\ModulesSample\ModulesSampleApp.csproj", "{DCC68F88-29C9-44EF-90E3-685666AFD6AD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ModulesSample", "samples\ModulesSample\ModulesSample.csproj", "{DCC68F88-29C9-44EF-90E3-685666AFD6AD}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DummyModule1", "samples\DummyModule1\DummyModule1.csproj", "{2B315287-FDAE-4092-9A80-7DA07D934BF1}"
 EndProject
@@ -63,11 +63,18 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		.editorconfig = .editorconfig
 		.gitignore = .gitignore
 		ChangeLog.md = ChangeLog.md
+		Directory.Build.props = Directory.Build.props
+		Directory.Build.targets = Directory.Build.targets
+		Directory.Packages.props = Directory.Packages.props
 		LICENSE = LICENSE
 		README.md = README.md
 		Settings.XamlStyler = Settings.XamlStyler
 		Upgrading-to-Avalonia-11.md = Upgrading-to-Avalonia-11.md
 	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Prism.DryIoc.Avalonia.Tests", "tests\Avalonia\Prism.DryIoc.Avalonia.Tests\Prism.DryIoc.Avalonia.Tests.csproj", "{8F79D89D-04B8-4969-39CE-A5A1F03A5A2D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Prism.IocContainer.Avalonia.Tests.Support", "tests\Avalonia\Prism.IocContainer.Avalonia.Tests.Support\Prism.IocContainer.Avalonia.Tests.Support.csproj", "{4D754C93-6C87-C69A-A756-0FF7C0FE34F1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -119,6 +126,14 @@ Global
 		{97F8C6D3-308C-40BD-B181-5CDFCF101CBF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{97F8C6D3-308C-40BD-B181-5CDFCF101CBF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{97F8C6D3-308C-40BD-B181-5CDFCF101CBF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8F79D89D-04B8-4969-39CE-A5A1F03A5A2D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8F79D89D-04B8-4969-39CE-A5A1F03A5A2D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8F79D89D-04B8-4969-39CE-A5A1F03A5A2D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8F79D89D-04B8-4969-39CE-A5A1F03A5A2D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4D754C93-6C87-C69A-A756-0FF7C0FE34F1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4D754C93-6C87-C69A-A756-0FF7C0FE34F1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4D754C93-6C87-C69A-A756-0FF7C0FE34F1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4D754C93-6C87-C69A-A756-0FF7C0FE34F1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -141,6 +156,8 @@ Global
 		{340538B6-0781-470E-8BD1-7B7735FDC554} = {966DDDE9-D31A-404B-9F24-5378DE8A12C8}
 		{DAFC499B-E379-4453-BDCE-2EC30E1290C8} = {966DDDE9-D31A-404B-9F24-5378DE8A12C8}
 		{97F8C6D3-308C-40BD-B181-5CDFCF101CBF} = {5F8D330E-F611-4E17-8217-F2D6CDB8E1F7}
+		{8F79D89D-04B8-4969-39CE-A5A1F03A5A2D} = {966DDDE9-D31A-404B-9F24-5378DE8A12C8}
+		{4D754C93-6C87-C69A-A756-0FF7C0FE34F1} = {966DDDE9-D31A-404B-9F24-5378DE8A12C8}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {D260344D-8648-441D-B85B-9D280005F098}
@@ -148,6 +165,7 @@ Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		tests\Avalonia\Prism.Container.Avalonia.Shared\Prism.Container.Avalonia.Shared.projitems*{340538b6-0781-470e-8bd1-7b7735fdc554}*SharedItemsImports = 13
 		src\Containers\Prism.DryIoc.Shared\Prism.DryIoc.Shared.projitems*{6e7ec81d-da39-4c4f-a898-0148558c34f4}*SharedItemsImports = 13
+		tests\Avalonia\Prism.Container.Avalonia.Shared\Prism.Container.Avalonia.Shared.projitems*{8f79d89d-04b8-4969-39ce-a5a1f03a5a2d}*SharedItemsImports = 5
 		src\Containers\Prism.DryIoc.Shared\Prism.DryIoc.Shared.projitems*{a379e2c8-bd9a-42a1-8218-ced3c0d75e64}*SharedItemsImports = 5
 	EndGlobalSection
 EndGlobal
