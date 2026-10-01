@@ -18,8 +18,8 @@ public class MainWindowViewModel : ViewModelBase
 
     public DelegateCommand CmdShowMsgBox => new(() =>
     {
-        var title = "MessageBox Title Here";
-        var message = "Hello, I am a simple MessageBox modal window with an OK button.\n\n" +
+        string title = "MessageBox Title Here";
+        string message = "Hello, I am a simple MessageBox modal window with an OK button.\n\n" +
                       "When too much text is added, a scrollbar will appear.";
 
         _dialogService.ShowDialog(nameof(MessageBoxView), new DialogParameters($"title={title}&message={message}"), r => { });
@@ -27,7 +27,7 @@ public class MainWindowViewModel : ViewModelBase
 
     public DelegateCommand CmdShowDialog => new DelegateCommand(() =>
     {
-        var message = "This is a message that should be shown in the dialog.";
+        string message = "This is a message that should be shown in the dialog.";
 
         // PRO TIP: Use `nameof(DialogView)` instead of "DialogView" to catch errors early on
         _dialogService.ShowDialog(nameof(DialogView), new DialogParameters($"message={message}"), r =>

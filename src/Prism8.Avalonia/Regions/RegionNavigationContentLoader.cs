@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
@@ -8,174 +8,173 @@ using Prism.Ioc;
 using Prism.Ioc.Internals;
 using Prism.Properties;
 
-namespace Prism.Regions
+namespace Prism.Regions;
+
+/// <summary>
+/// Implementation of <see cref="IRegionNavigationContentLoader"/> that relies on a <see cref="IContainerProvider"/>
+/// to create new views when necessary.
+/// </summary>
+public class RegionNavigationContentLoader : IRegionNavigationContentLoader
 {
+    private readonly IContainerExtension _container;
+
     /// <summary>
-    /// Implementation of <see cref="IRegionNavigationContentLoader"/> that relies on a <see cref="IContainerProvider"/>
-    /// to create new views when necessary.
+    /// Initializes a new instance of the <see cref="RegionNavigationContentLoader"/> class with a service locator.
     /// </summary>
-    public class RegionNavigationContentLoader : IRegionNavigationContentLoader
+    /// <param name="container">The <see cref="IContainerExtension" />.</param>
+    public RegionNavigationContentLoader(IContainerExtension container)
     {
-        private readonly IContainerExtension _container;
+        _container = container;
+    }
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="RegionNavigationContentLoader"/> class with a service locator.
-        /// </summary>
-        /// <param name="container">The <see cref="IContainerExtension" />.</param>
-        public RegionNavigationContentLoader(IContainerExtension container)
-        {
-            _container = container;
-        }
+    /// <summary>
+    /// Gets the view to which the navigation request represented by <paramref name="navigationContext"/> applies.
+    /// </summary>
+    /// <param name="region">The region.</param>
+    /// <param name="navigationContext">The context representing the navigation request.</param>
+    /// <returns>
+    /// The view to be the target of the navigation request.
+    /// </returns>
+    /// <remarks>
+    /// If none of the views in the region can be the target of the navigation request, a new view
+    /// is created and added to the region.
+    /// </remarks>
+    /// <exception cref="ArgumentException">when a new view cannot be created for the navigation request.</exception>
+    public object LoadContent(IRegion region, NavigationContext navigationContext)
+    {
+        if (region == null)
+            throw new ArgumentNullException(nameof(region));
 
-        /// <summary>
-        /// Gets the view to which the navigation request represented by <paramref name="navigationContext"/> applies.
-        /// </summary>
-        /// <param name="region">The region.</param>
-        /// <param name="navigationContext">The context representing the navigation request.</param>
-        /// <returns>
-        /// The view to be the target of the navigation request.
-        /// </returns>
-        /// <remarks>
-        /// If none of the views in the region can be the target of the navigation request, a new view
-        /// is created and added to the region.
-        /// </remarks>
-        /// <exception cref="ArgumentException">when a new view cannot be created for the navigation request.</exception>
-        public object LoadContent(IRegion region, NavigationContext navigationContext)
-        {
-            if (region == null)
-                throw new ArgumentNullException(nameof(region));
+        if (navigationContext == null)
+            throw new ArgumentNullException(nameof(navigationContext));
 
-            if (navigationContext == null)
-                throw new ArgumentNullException(nameof(navigationContext));
+        string candidateTargetContract = GetContractFromNavigationContext(navigationContext);
 
-            string candidateTargetContract = GetContractFromNavigationContext(navigationContext);
+        IEnumerable<object> candidates = GetCandidatesFromRegion(region, candidateTargetContract);
 
-            var candidates = GetCandidatesFromRegion(region, candidateTargetContract);
-
-            var acceptingCandidates =
-                candidates.Where(
-                    v =>
+        IEnumerable<object> acceptingCandidates =
+            candidates.Where(
+                v =>
+                {
+                    if (v is INavigationAware navigationAware && !navigationAware.IsNavigationTarget(navigationContext))
                     {
-                        if (v is INavigationAware navigationAware && !navigationAware.IsNavigationTarget(navigationContext))
-                        {
-                            return false;
-                        }
+                        return false;
+                    }
 
-                        if (!(v is Control control))
-                        {
-                            return true;
-                        }
+                    if (!(v is Control control))
+                    {
+                        return true;
+                    }
 
-                        navigationAware = control.DataContext as INavigationAware;
-                        return navigationAware == null || navigationAware.IsNavigationTarget(navigationContext);
-                    });
+                    navigationAware = control.DataContext as INavigationAware;
+                    return navigationAware == null || navigationAware.IsNavigationTarget(navigationContext);
+                });
 
-            var view = acceptingCandidates.FirstOrDefault();
+        object view = acceptingCandidates.FirstOrDefault();
 
-            if (view != null)
-            {
-                return view;
-            }
-
-            view = CreateNewRegionItem(candidateTargetContract);
-
-            AddViewToRegion(region, view);
-
+        if (view != null)
+        {
             return view;
         }
 
-        /// <summary>
-        /// Adds the view to the region.
-        /// </summary>
-        /// <param name="region">The region to add the view to</param>
-        /// <param name="view">The view to add to the region</param>
-        protected virtual void AddViewToRegion(IRegion region, object view)
+        view = CreateNewRegionItem(candidateTargetContract);
+
+        AddViewToRegion(region, view);
+
+        return view;
+    }
+
+    /// <summary>
+    /// Adds the view to the region.
+    /// </summary>
+    /// <param name="region">The region to add the view to</param>
+    /// <param name="view">The view to add to the region</param>
+    protected virtual void AddViewToRegion(IRegion region, object view)
+    {
+        region.Add(view);
+    }
+
+    /// <summary>
+    /// Provides a new item for the region based on the supplied candidate target contract name.
+    /// </summary>
+    /// <param name="candidateTargetContract">The target contract to build.</param>
+    /// <returns>An instance of an item to put into the <see cref="IRegion"/>.</returns>
+    protected virtual object CreateNewRegionItem(string candidateTargetContract)
+    {
+        try
         {
-            region.Add(view);
+            object newRegionItem = _container.Resolve<object>(candidateTargetContract);
+            MvvmHelpers.AutowireViewModel(newRegionItem);
+            return newRegionItem;
+        }
+        catch (ContainerResolutionException)
+        {
+            throw;
+        }
+        catch (Exception e)
+        {
+            throw new InvalidOperationException(
+                string.Format(CultureInfo.CurrentCulture, Resources.CannotCreateNavigationTarget, candidateTargetContract),
+                e);
+        }
+    }
+
+    /// <summary>
+    /// Returns the candidate TargetContract based on the <see cref="NavigationContext"/>.
+    /// </summary>
+    /// <param name="navigationContext">The navigation contract.</param>
+    /// <returns>The candidate contract to seek within the <see cref="IRegion"/> and to use, if not found, when resolving from the container.</returns>
+    protected virtual string GetContractFromNavigationContext(NavigationContext navigationContext)
+    {
+        if (navigationContext == null) throw new ArgumentNullException(nameof(navigationContext));
+
+        string candidateTargetContract = UriParsingHelper.GetAbsolutePath(navigationContext.Uri);
+        candidateTargetContract = candidateTargetContract.TrimStart('/');
+        return candidateTargetContract;
+    }
+
+    /// <summary>
+    /// Returns the set of candidates that may satisfy this navigation request.
+    /// </summary>
+    /// <param name="region">The region containing items that may satisfy the navigation request.</param>
+    /// <param name="candidateNavigationContract">The candidate navigation target as determined by <see cref="GetContractFromNavigationContext"/></param>
+    /// <returns>An enumerable of candidate objects from the <see cref="IRegion"/></returns>
+    protected virtual IEnumerable<object> GetCandidatesFromRegion(IRegion region, string candidateNavigationContract)
+    {
+        if (region is null)
+        {
+            throw new ArgumentNullException(nameof(region));
         }
 
-        /// <summary>
-        /// Provides a new item for the region based on the supplied candidate target contract name.
-        /// </summary>
-        /// <param name="candidateTargetContract">The target contract to build.</param>
-        /// <returns>An instance of an item to put into the <see cref="IRegion"/>.</returns>
-        protected virtual object CreateNewRegionItem(string candidateTargetContract)
+        if (string.IsNullOrEmpty(candidateNavigationContract))
         {
-            try
-            {
-                var newRegionItem = _container.Resolve<object>(candidateTargetContract);
-                MvvmHelpers.AutowireViewModel(newRegionItem);
-                return newRegionItem;
-            }
-            catch (ContainerResolutionException)
-            {
-                throw;
-            }
-            catch (Exception e)
-            {
-                throw new InvalidOperationException(
-                    string.Format(CultureInfo.CurrentCulture, Resources.CannotCreateNavigationTarget, candidateTargetContract),
-                    e);
-            }
+            throw new ArgumentNullException(nameof(candidateNavigationContract));
         }
 
-        /// <summary>
-        /// Returns the candidate TargetContract based on the <see cref="NavigationContext"/>.
-        /// </summary>
-        /// <param name="navigationContext">The navigation contract.</param>
-        /// <returns>The candidate contract to seek within the <see cref="IRegion"/> and to use, if not found, when resolving from the container.</returns>
-        protected virtual string GetContractFromNavigationContext(NavigationContext navigationContext)
-        {
-            if (navigationContext == null) throw new ArgumentNullException(nameof(navigationContext));
+        IEnumerable<object> contractCandidates = GetCandidatesFromRegionViews(region, candidateNavigationContract);
 
-            var candidateTargetContract = UriParsingHelper.GetAbsolutePath(navigationContext.Uri);
-            candidateTargetContract = candidateTargetContract.TrimStart('/');
-            return candidateTargetContract;
-        }
-
-        /// <summary>
-        /// Returns the set of candidates that may satisfy this navigation request.
-        /// </summary>
-        /// <param name="region">The region containing items that may satisfy the navigation request.</param>
-        /// <param name="candidateNavigationContract">The candidate navigation target as determined by <see cref="GetContractFromNavigationContext"/></param>
-        /// <returns>An enumerable of candidate objects from the <see cref="IRegion"/></returns>
-        protected virtual IEnumerable<object> GetCandidatesFromRegion(IRegion region, string candidateNavigationContract)
+        if (!contractCandidates.Any())
         {
-            if (region is null)
+            Type matchingType = _container.GetRegistrationType(candidateNavigationContract);
+            if (matchingType is null)
             {
-                throw new ArgumentNullException(nameof(region));
+                return Array.Empty<object>();
             }
 
-            if (string.IsNullOrEmpty(candidateNavigationContract))
-            {
-                throw new ArgumentNullException(nameof(candidateNavigationContract));
-            }
-
-            var contractCandidates = GetCandidatesFromRegionViews(region, candidateNavigationContract);
-
-            if (!contractCandidates.Any())
-            {
-                var matchingType = _container.GetRegistrationType(candidateNavigationContract);
-                if (matchingType is null)
-                {
-                    return Array.Empty<object>();
-                }
-
-                return GetCandidatesFromRegionViews(region, matchingType.FullName);
-            }
-
-            return contractCandidates;
+            return GetCandidatesFromRegionViews(region, matchingType.FullName);
         }
 
-        private IEnumerable<object> GetCandidatesFromRegionViews(IRegion region, string candidateNavigationContract)
-        {
-            return region.Views.Where(v => ViewIsMatch(v.GetType(), candidateNavigationContract));
-        }
+        return contractCandidates;
+    }
 
-        private static bool ViewIsMatch(Type viewType, string navigationSegment)
-        {
-            var names = new[] { viewType.Name, viewType.FullName };
-            return names.Any(x => x.Equals(navigationSegment, StringComparison.Ordinal));
-        }
+    private IEnumerable<object> GetCandidatesFromRegionViews(IRegion region, string candidateNavigationContract)
+    {
+        return region.Views.Where(v => ViewIsMatch(v.GetType(), candidateNavigationContract));
+    }
+
+    private static bool ViewIsMatch(Type viewType, string navigationSegment)
+    {
+        string[] names = new[] { viewType.Name, viewType.FullName };
+        return names.Any(x => x.Equals(navigationSegment, StringComparison.Ordinal));
     }
 }

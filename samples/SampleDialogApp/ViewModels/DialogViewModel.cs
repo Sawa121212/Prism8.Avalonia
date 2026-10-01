@@ -30,8 +30,8 @@ public class DialogViewModel : BindableBase, IDialogAware
 
     public DelegateCommand CmdModalDialog => new(() =>
     {
-        var title = "MessageBox Title Here";
-        var message = "Hello, I am a modal MessageBox window.\n\n" +
+        string title = "MessageBox Title Here";
+        string message = "Hello, I am a modal MessageBox window.\n\n" +
                       $"I {(ParentWindow == null ? "dont" : "do")} have a parent.";
 
         _dialogService.ShowDialog(

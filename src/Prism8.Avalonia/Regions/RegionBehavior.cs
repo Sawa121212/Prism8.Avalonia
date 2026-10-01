@@ -1,57 +1,56 @@
 using System;
 using Prism.Properties;
 
-namespace Prism.Regions
+namespace Prism.Regions;
+
+/// <summary>
+/// Provides a base class for region's behaviors.
+/// </summary>
+public abstract class RegionBehavior : IRegionBehavior
 {
+    private IRegion region;
+
     /// <summary>
-    /// Provides a base class for region's behaviors.
+    /// Behavior's attached region.
     /// </summary>
-    public abstract class RegionBehavior : IRegionBehavior
+    public IRegion Region
     {
-        private IRegion region;
-
-        /// <summary>
-        /// Behavior's attached region.
-        /// </summary>
-        public IRegion Region
+        get
         {
-            get
-            {
-                return region;
-            }
-            set
-            {
-                if (this.IsAttached)
-                {
-                    throw new InvalidOperationException(Resources.RegionBehaviorRegionCannotBeSetAfterAttach);
-                }
-
-                this.region = value;
-            }
+            return region;
         }
-
-        /// <summary>
-        /// Returns <see langword="true"/> if the behavior is attached to a region, <see langword="false"/> otherwise.
-        /// </summary>
-        public bool IsAttached { get; private set; }
-
-        /// <summary>
-        /// Attaches the behavior to the region.
-        /// </summary>
-        public void Attach()
+        set
         {
-            if (this.region == null)
+            if (this.IsAttached)
             {
-                throw new InvalidOperationException(Resources.RegionBehaviorAttachCannotBeCallWithNullRegion);
+                throw new InvalidOperationException(Resources.RegionBehaviorRegionCannotBeSetAfterAttach);
             }
 
-            IsAttached = true;
-            OnAttach();
+            this.region = value;
         }
-
-        /// <summary>
-        /// Override this method to perform the logic after the behavior has been attached.
-        /// </summary>
-        protected abstract void OnAttach();
     }
+
+    /// <summary>
+    /// Returns <see langword="true"/> if the behavior is attached to a region, <see langword="false"/> otherwise.
+    /// </summary>
+    public bool IsAttached { get; private set; }
+
+    /// <summary>
+    /// Attaches the behavior to the region.
+    /// </summary>
+    public void Attach()
+    {
+        if (this.region == null)
+        {
+            throw new InvalidOperationException(Resources.RegionBehaviorAttachCannotBeCallWithNullRegion);
+        }
+
+        IsAttached = true;
+        OnAttach();
+    }
+
+    /// <summary>
+    /// Override this method to perform the logic after the behavior has been attached.
+    /// </summary>
+    protected abstract void OnAttach();
 }

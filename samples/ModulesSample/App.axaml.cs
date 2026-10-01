@@ -14,111 +14,110 @@ using System.Threading;
 using Avalonia.Dialogs;
 using ModulesSample.Infrastructure;
 
-namespace ModulesSample
-{
-    public class App : PrismApplication
-    {
-        ////public CallbackLogger CallbackLogger { get; } = new CallbackLogger();
+namespace ModulesSample;
 
-        public static AppBuilder BuildAvaloniaApp()
-        {
+public class App : PrismApplication
+{
+    ////public CallbackLogger CallbackLogger { get; } = new CallbackLogger();
+
+    public static AppBuilder BuildAvaloniaApp()
+    {
 #pragma warning disable CA1416 // Validate platform compatibility; this is only ran on Win/Linux/Mac
-            var builder = AppBuilder.Configure<App>()
-                .UsePlatformDetect()
-                .With(new X11PlatformOptions
-                {
-                    EnableMultiTouch = true,
-                    UseDBusMenu = true,
-                })
-                .With(new Win32PlatformOptions())
-                .UseSkia()
-                .UseManagedSystemDialogs();
+        AppBuilder builder = AppBuilder.Configure<App>()
+            .UsePlatformDetect()
+            .With(new X11PlatformOptions
+            {
+                EnableMultiTouch = true,
+                UseDBusMenu = true,
+            })
+            .With(new Win32PlatformOptions())
+            .UseSkia()
+            .UseManagedSystemDialogs();
 #pragma warning restore CA1416 // Validate platform compatibility
 
 #if DEBUG
-            builder.LogToTrace();
+        builder.LogToTrace();
 #endif
-            return builder;
-        }
+        return builder;
+    }
 
-        public static bool IsSingleViewLifetime =>
-            Environment.GetCommandLineArgs()
-                .Any(a => a == "--fbdev" || a == "--drm");
+    public static bool IsSingleViewLifetime =>
+        Environment.GetCommandLineArgs()
+            .Any(a => a == "--fbdev" || a == "--drm");
 
-        public override void Initialize()
+    public override void Initialize()
+    {
+        AvaloniaXamlLoader.Load(this);
+        base.Initialize();
+    }
+
+    static int Main(string[] args)
+    {
+        double GetScaling()
         {
-            AvaloniaXamlLoader.Load(this);
-            base.Initialize();
+            int idx = Array.IndexOf(args, "--scaling");
+
+            if (idx != 0 && args.Length > idx + 1 &&
+                double.TryParse(args[idx + 1], NumberStyles.Any, CultureInfo.InvariantCulture, out double scaling))
+                return scaling;
+
+            return 1;
         }
 
-        static int Main(string[] args)
+        AppBuilder builder = BuildAvaloniaApp();
+
+        if (args.Contains("--fbdev"))
         {
-            double GetScaling()
-            {
-                var idx = Array.IndexOf(args, "--scaling");
-
-                if (idx != 0 && args.Length > idx + 1 &&
-                    double.TryParse(args[idx + 1], NumberStyles.Any, CultureInfo.InvariantCulture, out var scaling))
-                    return scaling;
-
-                return 1;
-            }
-
-            var builder = BuildAvaloniaApp();
-
-            if (args.Contains("--fbdev"))
-            {
-                SilenceConsole();
-                return builder.StartLinuxFbDev(args, scaling: GetScaling());
-            }
-            else if (args.Contains("--drm"))
-            {
-                SilenceConsole();
-                return builder.StartLinuxDrm(args, scaling: GetScaling());
-            }
-            else
-                return builder.StartWithClassicDesktopLifetime(args);
+            SilenceConsole();
+            return builder.StartLinuxFbDev(args, scaling: GetScaling());
         }
-
-        static void SilenceConsole()
+        else if (args.Contains("--drm"))
         {
-            new Thread(() =>
-            {
-                Console.CursorVisible = false;
-
-                while (true)
-                    Console.ReadKey(true);
-            })
-            {
-                IsBackground = true,
-            }.Start();
+            SilenceConsole();
+            return builder.StartLinuxDrm(args, scaling: GetScaling());
         }
+        else
+            return builder.StartWithClassicDesktopLifetime(args);
+    }
 
-        protected override void RegisterTypes(IContainerRegistry containerRegistry)
+    static void SilenceConsole()
+    {
+        new Thread(() =>
         {
-            // Temp disabled logging:
-            // - Prism.Logging has been moved and `ILoggerFacade` is deprecated.Prism.Logging.Serilog is out of date.
-            // - https://github.com/augustoproiete/prism-logging-serilog/issues/3
-            ////containerRegistry.RegisterInstance(CallbackLogger);
-            containerRegistry.RegisterSingleton<IModuleTracker, ModuleTracker>();
-        }
+            Console.CursorVisible = false;
 
-        protected override AvaloniaObject CreateShell()
+            while (true)
+                Console.ReadKey(true);
+        })
         {
-            return Container.Resolve<MainWindow>();
-        }
+            IsBackground = true,
+        }.Start();
+    }
 
-        protected override IModuleCatalog CreateModuleCatalog()
-        {
-            return new AggregateModuleCatalog();
-        }
+    protected override void RegisterTypes(IContainerRegistry containerRegistry)
+    {
+        // Temp disabled logging:
+        // - Prism.Logging has been moved and `ILoggerFacade` is deprecated.Prism.Logging.Serilog is out of date.
+        // - https://github.com/augustoproiete/prism-logging-serilog/issues/3
+        ////containerRegistry.RegisterInstance(CallbackLogger);
+        containerRegistry.RegisterSingleton<IModuleTracker, ModuleTracker>();
+    }
 
-        protected override void ConfigureModuleCatalog(IModuleCatalog moduleCatalog)
-        {
-            moduleCatalog.AddModule<DummyModule.DummyModule1>();
-            moduleCatalog.AddModule<DummyModule2.DummyModule2>();
+    protected override AvaloniaObject CreateShell()
+    {
+        return Container.Resolve<MainWindow>();
+    }
 
-            base.ConfigureModuleCatalog(moduleCatalog);
-        }
+    protected override IModuleCatalog CreateModuleCatalog()
+    {
+        return new AggregateModuleCatalog();
+    }
+
+    protected override void ConfigureModuleCatalog(IModuleCatalog moduleCatalog)
+    {
+        moduleCatalog.AddModule<DummyModule.DummyModule1>();
+        moduleCatalog.AddModule<DummyModule2.DummyModule2>();
+
+        base.ConfigureModuleCatalog(moduleCatalog);
     }
 }

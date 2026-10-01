@@ -68,7 +68,7 @@ public class MessageBoxViewModel : BindableBase, IDialogAware
 
     public void OnDialogOpened(IDialogParameters parameters)
     {
-        var title = parameters.GetValue<string>("title");
+        string title = parameters.GetValue<string>("title");
         if (!string.IsNullOrEmpty(title))
             Title = title;
 

@@ -8,7 +8,7 @@ public class Program
 {
     public static AppBuilder BuildAvaloniaApp()
     {
-        var builder = AppBuilder
+        AppBuilder builder = AppBuilder
             .Configure<App>()
             .UsePlatformDetect()
             .With(new X11PlatformOptions { EnableMultiTouch = true, UseDBusMenu = true, })

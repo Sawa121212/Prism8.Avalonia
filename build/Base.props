@@ -2,11 +2,11 @@
 <Project DefaultTargets="Build"
          xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
-    <Version>8.1.97.12100</Version>
-    <PackageProjectUrl>https://github.com/AvaloniaCommunity/Prism.Avalonia</PackageProjectUrl>
+    <Version>8.1.97.12101</Version>
+    <PackageProjectUrl>https://github.com/Sawa121212/Prism8.Avalonia</PackageProjectUrl>
     <Copyright>Copyright (c) 2024 Xeno Innovations, Inc.</Copyright>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <RepositoryUrl>https://github.com/AvaloniaCommunity/Prism.Avalonia</RepositoryUrl>
+    <RepositoryUrl>https://github.com/Sawa121212/Prism8.Avalonia</RepositoryUrl>
   </PropertyGroup>
 
   <PropertyGroup>

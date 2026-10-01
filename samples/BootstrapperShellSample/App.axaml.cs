@@ -9,49 +9,48 @@ using System.Threading;
 using Prism.Ioc;
 using BootstrapperShellSample.Views;
 
-namespace BootstrapperShellSample
+namespace BootstrapperShellSample;
+
+class App : PrismApplication
 {
-    class App : PrismApplication
+    public static AppBuilder BuildAvaloniaApp()
     {
-        public static AppBuilder BuildAvaloniaApp()
-        {
-            var builder = AppBuilder
-                .Configure<App>()
-                .UsePlatformDetect();
+        AppBuilder builder = AppBuilder
+            .Configure<App>()
+            .UsePlatformDetect();
 #if DEBUG
-            builder.LogToTrace();
+        builder.LogToTrace();
 #endif
-            return builder;
-        }
+        return builder;
+    }
 
-        public override void Initialize()
-        {
-            AvaloniaXamlLoader.Load(this);
-            base.Initialize();
-        }
+    public override void Initialize()
+    {
+        AvaloniaXamlLoader.Load(this);
+        base.Initialize();
+    }
 
-        static void Main(string[] args)
-        {
-            BuildAvaloniaApp().Start(AppMain, args);
-        }
+    static void Main(string[] args)
+    {
+        BuildAvaloniaApp().Start(AppMain, args);
+    }
 
-        // Application entry point. Avalonia is completely initialized.
-        static void AppMain(Application app, string[] args)
-        {
-            // A cancellation token source that will be used to stop the main loop
-            var cts = new CancellationTokenSource();
+    // Application entry point. Avalonia is completely initialized.
+    static void AppMain(Application app, string[] args)
+    {
+        // A cancellation token source that will be used to stop the main loop
+        CancellationTokenSource cts = new CancellationTokenSource();
 
-            // Start the main loop
-            app.Run(cts.Token);
-        }
+        // Start the main loop
+        app.Run(cts.Token);
+    }
 
-        protected override void RegisterTypes(IContainerRegistry containerRegistry)
-        {
-        }
+    protected override void RegisterTypes(IContainerRegistry containerRegistry)
+    {
+    }
 
-        protected override AvaloniaObject CreateShell()
-        {
-            return Container.Resolve<MainWindow>();
-        }
+    protected override AvaloniaObject CreateShell()
+    {
+        return Container.Resolve<MainWindow>();
     }
 }

@@ -1,10 +1,9 @@
 ﻿using System;
 
-namespace Prism.Common
+namespace Prism.Common;
+
+internal static class Stubs
 {
-    internal static class Stubs
-    {
-        public static readonly Action Nop = () => { };
-        public static readonly Action<Exception> Throw = ex => { throw ex; };
-    }
+    public static readonly Action Nop = () => { };
+    public static readonly Action<Exception> Throw = ex => { throw ex; };
 }

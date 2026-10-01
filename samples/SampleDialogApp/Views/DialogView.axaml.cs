@@ -1,4 +1,4 @@
-using Avalonia.Controls;
+﻿using Avalonia.Controls;
 using Avalonia.Interactivity;
 using Avalonia.Markup.Xaml;
 using Prism.Ioc;
@@ -35,10 +35,10 @@ public partial class DialogView : UserControl
 
     private void BtnShowModal_Click(object sender, RoutedEventArgs args)
     {
-        var dialogSvc = ContainerLocator.Current.Resolve<IDialogService>();
+        IDialogService dialogSvc = ContainerLocator.Current.Resolve<IDialogService>();
 
-        var title = "MessageBox Title Here";
-        var message = "Hello, I am a simple modal MessageBox with an OK button.\n\n" +
+        string title = "MessageBox Title Here";
+        string message = "Hello, I am a simple modal MessageBox with an OK button.\n\n" +
                       "I've been called by the `.axaml.cs` UserControl.";
 
         dialogSvc.ShowDialog(

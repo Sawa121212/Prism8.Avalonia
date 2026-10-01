@@ -1,4 +1,4 @@
-<UserControl xmlns="https://github.com/avaloniaui"
+﻿<UserControl xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -31,7 +31,9 @@
     </Button>
 
     <!-- Dock the Settings button to the bottom -->
-    <Button DockPanel.Dock="Bottom" Command="{Binding CmdSettings}" ToolTip.Tip="Settings">
+    <Button DockPanel.Dock="Bottom"
+            Command="{Binding CmdSettings}"
+            ToolTip.Tip="Settings">
       <StackPanel Orientation="Horizontal">
         <PathIcon Data="{StaticResource settings_regular}" />
         <TextBlock Text="Navigation Sample" />
@@ -40,7 +42,8 @@
 
     <ScrollViewer>
       <StackPanel>
-        <Button Command="{Binding CmdDashboard}" ToolTip.Tip="Dashboard">
+        <Button Command="{Binding CmdDashboard}"
+                ToolTip.Tip="Dashboard">
           <StackPanel Orientation="Horizontal">
             <PathIcon Data="{StaticResource home_regular}" />
             <TextBlock Text="Dashboard" />
@@ -48,7 +51,8 @@
         </Button>
 
         <!-- Place additionals buttons here... -->
-        <Button Command="{Binding .}" ToolTip.Tip="Dashboard">
+        <Button Command="{Binding .}"
+                ToolTip.Tip="Dashboard">
           <StackPanel Orientation="Horizontal">
             <PathIcon Data="{StaticResource lock_regular}" />
             <TextBlock Text="Something Else" />
@@ -56,6 +60,6 @@
         </Button>
 
       </StackPanel>
-    </ScrollViewer>    
+    </ScrollViewer>
   </DockPanel>
 </UserControl>

@@ -2,17 +2,16 @@
 using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
 
-namespace BootstrapperShellSample.Views
+namespace BootstrapperShellSample.Views;
+
+/// <summary>
+/// Interaction logic for MainWindow.xaml
+/// </summary>
+public partial class MainWindow : Window
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
-    public partial class MainWindow : Window
+    public MainWindow()
     {
-        public MainWindow()
-        {
-            this.InitializeComponent();
-            //this.AttachDevTools();
-        }
+        this.InitializeComponent();
+        //this.AttachDevTools();
     }
 }

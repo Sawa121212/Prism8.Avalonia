@@ -8,7 +8,6 @@
     https://github.com/AvaloniaUI/Avalonia/issues/6892
     -->
     <TrimMode>copyused</TrimMode>
-    <Authors>Damian Suess</Authors>
     <BuiltInComInteropSupport>true</BuiltInComInteropSupport>
     <AvaloniaUseCompiledBindingsByDefault>false</AvaloniaUseCompiledBindingsByDefault>
   </PropertyGroup>

@@ -1,9 +1,8 @@
-﻿namespace ModulesSample.Infrastructure
+﻿namespace ModulesSample.Infrastructure;
+
+public enum ModuleInitializationStatus
 {
-    public enum ModuleInitializationStatus
-    {
-        NotStarted,
-        Constructed,
-        Initialized
-    }
+    NotStarted,
+    Constructed,
+    Initialized
 }

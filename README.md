@@ -5,11 +5,8 @@
 > **Prism.Avalonia** has officially moved to [Prism Library](https://github.com/PrismLibrary/Prism)!
 >
 >
-
-<center>
   
 ![Logo](https://raw.githubusercontent.com/AvaloniaCommunity/Prism.Avalonia/develop/images/Prism.Avalonia.png)
-</center>
 
  [Prism.Avalonia](https://github.com/AvaloniaCommunity/Prism.Avalonia) provides your cross-platform [Avalonia](https://avaloniaui.net/) apps with [Prism library](https://github.com/PrismLibrary/Prism) support so you can **Navigate**, create **Dialog Windows** and **Notifications**, provide **Dependency Injection** and internal **Messaging** easier than before!
  
@@ -51,13 +48,7 @@ Just like _Prism.WPF or Prism.Maui_, your project must reference both the **Pris
 
 Choose the NuGet package version that matches your Avalonia version.
 
-Our [versioning schema](https://github.com/AvaloniaCommunity/Prism.Avalonia/wiki/Versioning-Schema) is based on the [SemVer](https://semver.org/) using the format  `MAJOR.MINOR.PATCH.REVISION`. The `REVISION` segment indicates the Avalonia version support. For instance `v9.0.537.11234` equates to, Prism `v9.0.537`, Avalonia `v11.2.3`, _revision_ `4`.
-
-| Prism | Avalonia | Prism.Avalonia NuGet Package
-|-|-|-
-| v9.0.537      | **11.1.3**  | v9.0.537.11130 ([Core](https://www.nuget.org/packages/Prism.Avalonia/9.0.537.11130)) ([DryIoc](https://www.nuget.org/packages/Prism.DryIoc.Avalonia/9.0.537.11130))
-| v8.1.97       | **11.0.7**  | v8.1.97.11073 ([Core](https://www.nuget.org/packages/Prism.Avalonia/8.1.97.11073)) ([DryIoc](https://www.nuget.org/packages/Prism.DryIoc.Avalonia/8.1.97.11073))
-| v8.1.97       | **0.10.21** | v8.1.97.1021 ([Core](https://www.nuget.org/packages/Prism.Avalonia/8.1.97.1021)) ([DryIoc](https://www.nuget.org/packages/Prism.DryIoc.Avalonia/8.1.97.1021))
+Our [versioning schema](https://github.com/AvaloniaCommunity/Prism.Avalonia/wiki/Versioning-Schema) is based on the [SemVer](https://semver.org/) using the format  `MAJOR.MINOR.PATCH.REVISION`. The `REVISION` segment indicates the Avalonia version support. For instance `v8.1.97.12104` equates to, Prism `v8.1.97`, Avalonia `v12.1.0`, _revision_ `4`.
 
 Be sure to check out the [ChangeLog.md](ChangeLog.md) and guides when upgrading your NuGet packages:
 
@@ -80,17 +71,13 @@ Issues posted without a description may be closed immediately. Use the discussio
 Add the Prism.Avalonia and its DryIoc packages to your project:
 
 ```powershell
-# Install the latest
+# Install the latest Prism8
 Install-Package Prism8.Avalonia
 Install-Package Prism8.DryIoc.Avalonia
 
-# Install the latest v9
+# Install the latest original v8 and v9
 Install-Package Prism.Avalonia
 Install-Package Prism.DryIoc.Avalonia
-
-# Legacy: Avalonia v0.10.1021
-Install-Package Prism.Avalonia -Version 8.1.97.1021
-Install-Package Prism.DryIoc.Avalonia -Version 8.1.97.1021
 ```
 
 ## How to use
@@ -217,14 +204,3 @@ See, [Code of Conduct](.github/Code-of-Conduct.md)
 ### Security
 
 See, [Security](.github/Security.md)
-
-## Used By
-
-Want to see your project listed? Let us know!
-
-* https://github.com/one-ware/OneWare
-* https://github.com/Nepitwin/I18N.Avalonia
-* https://github.com/CrackAndDie/Abdrakov.Container
-* https://github.com/CrackAndDie/Hypocrite.Services
-
-**Sponsored by:** [Suess Labs](https://suesslabs.com) a subsidary of Xeno Innovations, Inc.

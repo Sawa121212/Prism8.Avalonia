@@ -1,18 +1,17 @@
-namespace Prism.Regions
+namespace Prism.Regions;
+
+/// <summary>
+/// Interface for allowing extensible behavior on regions.
+/// </summary>
+public interface IRegionBehavior
 {
     /// <summary>
-    /// Interface for allowing extensible behavior on regions.
+    /// The region that this behavior is extending.
     /// </summary>
-    public interface IRegionBehavior
-    {
-        /// <summary>
-        /// The region that this behavior is extending.
-        /// </summary>
-        IRegion Region { get; set; }
+    IRegion Region { get; set; }
 
-        /// <summary>
-        /// Attaches the behavior to the specified region.
-        /// </summary>
-        void Attach();
-    }
+    /// <summary>
+    /// Attaches the behavior to the specified region.
+    /// </summary>
+    void Attach();
 }
