@@ -20,6 +20,7 @@
       <Setter Property="Margin" Value="10" />
     </Style>
   </UserControl.Styles>
+
   <Grid RowDefinitions="auto,auto,auto,*">
     <Label Content="Welcome to the Dashboard!" FontSize="32" />
 

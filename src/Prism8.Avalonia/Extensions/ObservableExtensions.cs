@@ -29,7 +29,7 @@ namespace Prism.Extensions
             //
             // [OK] Use of unsafe Subscribe: non-pretentious constructor for an observer; this overload is not to be used internally.
             //
-            return source.Subscribe/*Unsafe*/(new AnonymousObserver<T>(onNext, Stubs.Throw, Stubs.Nop));
+            return source.Subscribe /*Unsafe*/(new AnonymousObserver<T>(onNext, Stubs.Throw, Stubs.Nop));
         }
     }
 }

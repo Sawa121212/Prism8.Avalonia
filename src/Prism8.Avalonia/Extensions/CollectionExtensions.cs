@@ -1,6 +1,8 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
+#pragma warning disable IDE0130
 namespace System.Collections.ObjectModel
+#pragma warning restore IDE0130
 {
     /// <summary>
     /// Class that provides extension methods to Collection
@@ -19,6 +21,7 @@ namespace System.Collections.ObjectModel
         {
             if (collection == null)
                 throw new ArgumentNullException(nameof(collection));
+
             if (items == null)
                 throw new ArgumentNullException(nameof(items));
 
