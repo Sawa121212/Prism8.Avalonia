@@ -1,7 +1,7 @@
 ﻿<Project>
 
   <PropertyGroup>
-    <AvaloniaVersion>11.3.18</AvaloniaVersion>
+    <AvaloniaVersion>12.1.0</AvaloniaVersion>
     <PrismCoreVersion>8.1.97</PrismCoreVersion>
   </PropertyGroup>
 
