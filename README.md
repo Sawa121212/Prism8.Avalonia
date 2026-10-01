@@ -1,4 +1,4 @@
-# Prism.Avalonia
+# Prism8.Avalonia
 
 > ## Announcement
 >
