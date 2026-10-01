@@ -2,12 +2,11 @@
 
 > ## Announcement
 >
-> **Prism.Avalonia** has officially moved to [Prism Library](https://github.com/PrismLibrary/Prism)!<br />
+> **Prism.Avalonia** has officially moved to [Prism Library](https://github.com/PrismLibrary/Prism)!
 >
 >
 
 <center>
-
 ![Logo](https://raw.githubusercontent.com/AvaloniaCommunity/Prism.Avalonia/develop/images/Prism.Avalonia.png)
 </center>
 
