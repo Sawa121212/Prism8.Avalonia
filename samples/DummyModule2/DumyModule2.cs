@@ -4,27 +4,26 @@ using Prism.Ioc;
 using Prism.Modularity;
 using Prism.Regions;
 
-namespace DummyModule2
+namespace DummyModule2;
+
+public class DummyModule2 : IModule
 {
-    public class DummyModule2 : IModule
+    private readonly IModuleTracker _moduleTracker;
+    private readonly IRegionManager _regionManager;
+
+    public DummyModule2(IModuleTracker moduleTracker, IRegionManager regionManager)
     {
-        private readonly IModuleTracker _moduleTracker;
-        private readonly IRegionManager _regionManager;
+        _moduleTracker = moduleTracker;
+        _regionManager = regionManager;
+    }
 
-        public DummyModule2(IModuleTracker moduleTracker, IRegionManager regionManager)
-        {
-            _moduleTracker = moduleTracker;
-            _regionManager = regionManager;
-        }
+    public void OnInitialized(IContainerProvider containerProvider)
+    {
+        _moduleTracker.RecordModuleInitialized(ModuleNames.ModuleDummy1);
+        _regionManager.RegisterViewWithRegion(RegionNames.Region2, typeof(DummyModuleView2));
+    }
 
-        public void OnInitialized(IContainerProvider containerProvider)
-        {
-            _moduleTracker.RecordModuleInitialized(ModuleNames.ModuleDummy1);
-            _regionManager.RegisterViewWithRegion(RegionNames.Region2, typeof(DummyModuleView2));
-        }
-
-        public void RegisterTypes(IContainerRegistry containerRegistry)
-        {
-        }
+    public void RegisterTypes(IContainerRegistry containerRegistry)
+    {
     }
 }

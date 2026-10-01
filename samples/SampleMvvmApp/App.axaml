@@ -2,9 +2,16 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              x:Class="SampleMvvmApp.App"
              RequestedThemeVariant="Light">
+
   <Application.Styles>
-    <FluentTheme />
-    <!-- Avalonia v0.10: <FluentTheme Mode="Light" /> -->
+    <FluentTheme>
+      <FluentTheme.Palettes>
+        <!-- Palette for Light theme variant -->
+        <ColorPaletteResources x:Key="Light" Accent="Blue" RegionColor="White" ErrorText="Red" />
+        <!-- Palette for Dark theme variant -->
+        <ColorPaletteResources x:Key="Dark" Accent="DarkBlue" RegionColor="Black" ErrorText="Red" />
+      </FluentTheme.Palettes>
+    </FluentTheme>
 
     <!-- Custom SVG glyphs -->
     <StyleInclude Source="avares://SampleMvvmApp/Styles/Icons.axaml" />

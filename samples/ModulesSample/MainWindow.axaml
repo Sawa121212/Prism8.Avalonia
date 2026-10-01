@@ -5,7 +5,7 @@
         MinWidth="500" MinHeight="300"
         x:Class="ModulesSample.MainWindow">
   <StackPanel Orientation="Vertical">
-    <TextBox Text="Hello World by Prism.Avalonia!" HorizontalAlignment="Center"
+    <TextBox Text="Hello World by Prism8.Avalonia!" HorizontalAlignment="Center"
              VerticalAlignment="Center" FontSize="17" FontWeight="Heavy" />
     <TextBox Name="LogTextBox" IsReadOnly="True" MinHeight="150" />
     <ContentControl prism:RegionManager.RegionName="Region1" MinHeight="150" MinWidth="150" />

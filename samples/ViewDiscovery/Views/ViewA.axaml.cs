@@ -1,13 +1,12 @@
 ﻿using Avalonia.Controls;
 
-namespace ViewDiscovery.Views
+namespace ViewDiscovery.Views;
+
+/// <summary>Interaction logic for ViewA.xaml</summary>
+public partial class ViewA : UserControl
 {
-    /// <summary>Interaction logic for ViewA.xaml</summary>
-    public partial class ViewA : UserControl
+    public ViewA()
     {
-        public ViewA()
-        {
-            InitializeComponent();
-        }
+        InitializeComponent();
     }
 }

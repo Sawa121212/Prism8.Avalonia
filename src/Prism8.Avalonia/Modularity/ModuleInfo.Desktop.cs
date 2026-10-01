@@ -1,9 +1,8 @@
 using System;
 
-namespace Prism.Modularity
+namespace Prism.Modularity;
+
+[Serializable]
+public partial class ModuleInfo
 {
-    [Serializable]
-    public partial class ModuleInfo
-    {
-    }
 }

@@ -4,11 +4,32 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="SampleMvvmApp.Views.Setting1View">
-  <Grid ColumnDefinitions="100,200" RowDefinitions="Auto,Auto,Auto" Margin="10">
-    <TextBlock FontWeight="Bold" Text="First Settings" />
-    <TextBlock Grid.Column="0" Grid.Row="1" Text="Setting A" />
-    <TextBox Grid.Column="1" Grid.Row="1" />
-    <TextBlock Grid.Column="0" Grid.Row="2" Text="Setting B" />
-    <ComboBox Grid.Column="1" Grid.Row="2" />
+  <Grid RowDefinitions="Auto,Auto,Auto"
+        ColumnDefinitions="100,200"
+        Margin="10">
+    <TextBlock Text="First Settings"
+               FontWeight="Bold" />
+    <TextBlock Grid.Column="0"
+               Grid.Row="1"
+               Text="Setting A" />
+    <TextBox Grid.Column="1"
+             Grid.Row="1" />
+    <TextBlock Text="Setting B"
+               Grid.Row="2"
+               Grid.Column="0" />
+    <ComboBox SelectedIndex="2"
+              MaxDropDownHeight="100"
+              Grid.Row="2"
+              Grid.Column="1">
+      <ComboBoxItem>Text Item 1</ComboBoxItem>
+      <ComboBoxItem>Text Item 2</ComboBoxItem>
+      <ComboBoxItem>Text Item 3</ComboBoxItem>
+      <ComboBoxItem>Text Item 4</ComboBoxItem>
+      <ComboBoxItem>Text Item 5</ComboBoxItem>
+      <ComboBoxItem>Text Item 6</ComboBoxItem>
+      <ComboBoxItem>Text Item 7</ComboBoxItem>
+      <ComboBoxItem>Text Item 8</ComboBoxItem>
+      <ComboBoxItem>Text Item 9</ComboBoxItem>
+    </ComboBox>
   </Grid>
 </UserControl>

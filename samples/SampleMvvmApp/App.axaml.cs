@@ -77,7 +77,7 @@ public class App : PrismApplication
     protected override void OnInitialized()
     {
         // Register Views to the Region it will appear in. Don't register them in the ViewModel.
-        var regionManager = Container.Resolve<IRegionManager>();
+        IRegionManager regionManager = Container.Resolve<IRegionManager>();
 
         // WARNING: Prism v11.0.0-prev4
         // - DataTemplates MUST define a DataType or else an XAML error will be thrown

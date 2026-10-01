@@ -4,66 +4,64 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using Prism.Properties;
 
-namespace Prism.Modularity
+namespace Prism.Modularity;
+
+/// <summary>
+/// A catalog built from a configuration file.
+/// </summary>
+public class ConfigurationModuleCatalog : ModuleCatalog
 {
+    /// <summary>
+    /// Builds an instance of ConfigurationModuleCatalog with a <see cref="ConfigurationStore"/> as the default store.
+    /// </summary>
+    public ConfigurationModuleCatalog()
+    {
+        Store = new ConfigurationStore();
+    }
 
     /// <summary>
-    /// A catalog built from a configuration file.
+    /// Gets or sets the store where the configuration is kept.
     /// </summary>
-    public class ConfigurationModuleCatalog : ModuleCatalog
+    public IConfigurationStore Store { get; set; }
+
+    /// <summary>
+    /// Loads the catalog from the configuration.
+    /// </summary>
+    protected override void InnerLoad()
     {
-        /// <summary>
-        /// Builds an instance of ConfigurationModuleCatalog with a <see cref="ConfigurationStore"/> as the default store.
-        /// </summary>
-        public ConfigurationModuleCatalog()
+        if (Store == null)
         {
-            Store = new ConfigurationStore();
+            throw new InvalidOperationException(Resources.ConfigurationStoreCannotBeNull);
         }
 
-        /// <summary>
-        /// Gets or sets the store where the configuration is kept.
-        /// </summary>
-        public IConfigurationStore Store { get; set; }
+        EnsureModulesDiscovered();
+    }
 
-        /// <summary>
-        /// Loads the catalog from the configuration.
-        /// </summary>
-        protected override void InnerLoad()
+    private void EnsureModulesDiscovered()
+    {
+        ModulesConfigurationSection section = Store.RetrieveModuleConfigurationSection();
+
+        if (section != null)
         {
-            if (Store == null)
+            foreach (ModuleConfigurationElement element in section.Modules)
             {
-                throw new InvalidOperationException(Resources.ConfigurationStoreCannotBeNull);
-            }
+                IList<string> dependencies = new List<string>();
 
-            EnsureModulesDiscovered();
-        }
-
-        private void EnsureModulesDiscovered()
-        {
-            ModulesConfigurationSection section = Store.RetrieveModuleConfigurationSection();
-
-            if (section != null)
-            {
-                foreach (ModuleConfigurationElement element in section.Modules)
+                if (element.Dependencies.Count > 0)
                 {
-                    IList<string> dependencies = new List<string>();
-
-                    if (element.Dependencies.Count > 0)
+                    foreach (ModuleDependencyConfigurationElement dependency in element.Dependencies)
                     {
-                        foreach (ModuleDependencyConfigurationElement dependency in element.Dependencies)
-                        {
-                            dependencies.Add(dependency.ModuleName);
-                        }
+                        dependencies.Add(dependency.ModuleName);
                     }
-
-                    ModuleInfo moduleInfo = new ModuleInfo(element.ModuleName, element.ModuleType)
-                    {
-                        Ref = GetFileAbsoluteUri(element.AssemblyFile),
-                        InitializationMode = element.StartupLoaded ? InitializationMode.WhenAvailable : InitializationMode.OnDemand
-                    };
-                    moduleInfo.DependsOn.AddRange(dependencies.ToArray());
-                    AddModule(moduleInfo);
                 }
+
+                ModuleInfo moduleInfo = new ModuleInfo(element.ModuleName, element.ModuleType)
+                {
+                    Ref = GetFileAbsoluteUri(element.AssemblyFile),
+                    InitializationMode = element.StartupLoaded ? InitializationMode.WhenAvailable : InitializationMode.OnDemand
+                };
+                moduleInfo.DependsOn.AddRange(dependencies.ToArray());
+                AddModule(moduleInfo);
             }
         }
     }

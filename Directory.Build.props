@@ -1,9 +1,8 @@
-<Project>
+﻿<Project>
   <PropertyGroup>
     <NeutralLanguage>en</NeutralLanguage>
-    <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
+    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
   </PropertyGroup>
-
 
   <PropertyGroup>
     <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>

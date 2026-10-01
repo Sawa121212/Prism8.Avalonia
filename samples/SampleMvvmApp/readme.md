@@ -1,8 +1,8 @@
-# Simple MVVM App
+﻿# Simple MVVM App
 
 This demonstrates the following Prism.Avalonia features:
 
-* .NET 6, 7, 8 - Cross-platform
+* .NET 8, 9, 10 - Cross-platform
 * MVVM Pattern - _Model View ViewModel_
 * Prism Navigation with and without passing parameters.
 * Prism Journaling backwards
