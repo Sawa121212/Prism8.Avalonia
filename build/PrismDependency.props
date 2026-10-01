@@ -4,7 +4,6 @@
 
   <ItemGroup>
     <PackageReference Include="Prism.Core" />
-    <PackageReference Include="Prism.Container.DryIoc" />
   </ItemGroup>
   
 </Project>

@@ -1,0 +1,15 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFrameworks>net8.0;net9.0;net10.0</TargetFrameworks>
+    <Authors>Damian Suess</Authors>
+  </PropertyGroup>
+
+  <Import Project="../../build/SampleApp.props" />
+
+  <ItemGroup>
+    <ProjectReference Include="..\DummyModule2\DummyModule2.csproj" />
+    <ProjectReference Include="..\DummyModule1\DummyModule1.csproj" />
+  </ItemGroup>
+
+</Project>

@@ -1,22 +1,13 @@
-# Prism.Avalonia
+# Prism8.Avalonia
 
 > ## Announcement
 >
-> **Prism.Avalonia** has officially moving to  [Prism Library](https://github.com/PrismLibrary/Prism)!<br />
+> **Prism.Avalonia** has officially moved to [Prism Library](https://github.com/PrismLibrary/Prism)!
 >
-> _For Avalonia v12 updates, follow the [work item #3391](https://github.com/PrismLibrary/Prism/issues/3391) for more information._
->
-> Until full integration, keep reaching out on this site.
-> 
-> Thank you all for helping to mature and make this project into what it is today. I look forward to continuing efforts on Prism Avalonia as part of the official package.
->
-> _See you over there for future releases_!
->
-> `- Damian`
 >
 
 <center>
-
+  
 ![Logo](https://raw.githubusercontent.com/AvaloniaCommunity/Prism.Avalonia/develop/images/Prism.Avalonia.png)
 </center>
 
@@ -51,19 +42,10 @@ Both mobile and WebAssembly utilize the `ISingleViewApplicationLifetime`. Though
 
 Just like _Prism.WPF or Prism.Maui_, your project must reference both the **Prism.Avalonia** (_Core_) and **Prism.DryIoc.Avalonia** (_IoC container_) packages to work.
 
-<!--
-OLD - BuildStats.info is defunct
-New - Shields.io
-* Before: https://buildstats.info/nuget/Prism.Avalonia?dWidth=70&includePreReleases=false
-After:
-* Current: https://img.shields.io/nuget/v/Prism.Avalonia
-* Preview: https://img.shields.io/nuget/vpre/Prism.Avalonia
-* Downloads: https://img.shields.io/nuget/dt/Prism.Avalonia
--->
-| Package | Stable | Preview
-|-|-|-|
-| Prism.Avalonia | [![Prism.Avalonia NuGet Badge](https://img.shields.io/nuget/v/Prism.Avalonia)](https://www.nuget.org/packages/Prism.Avalonia/) | [![Prism.Avalonia NuGet Badge](https://img.shields.io/nuget/vpre/Prism.Avalonia)](https://www.nuget.org/packages/Prism.Avalonia/)
-| Prism.DryIoc.Avalonia | [![Prism.DryIoc.Avalonia NuGet Badge](https://img.shields.io/nuget/v/Prism.DryIoc.Avalonia)](https://www.nuget.org/packages/Prism.DryIoc.Avalonia/) | [![Prism.DryIoc.Avalonia NuGet Badge](https://img.shields.io/nuget/vpre/Prism.DryIoc.Avalonia)](https://www.nuget.org/packages/Prism.DryIoc.Avalonia/)
+| Package | Stable |
+|-|-|
+| Prism8.Avalonia | [![Prism.Avalonia NuGet Badge](https://img.shields.io/nuget/v/Prism8.Avalonia)](https://www.nuget.org/packages/Prism8.Avalonia/) |
+| Prism8.DryIoc.Avalonia | [![Prism.DryIoc.Avalonia NuGet Badge](https://img.shields.io/nuget/v/Prism8.DryIoc.Avalonia)](https://www.nuget.org/packages/Prism8.DryIoc.Avalonia/) |
 
 ### Version Notice
 
@@ -99,6 +81,10 @@ Add the Prism.Avalonia and its DryIoc packages to your project:
 
 ```powershell
 # Install the latest
+Install-Package Prism8.Avalonia
+Install-Package Prism8.DryIoc.Avalonia
+
+# Install the latest v9
 Install-Package Prism.Avalonia
 Install-Package Prism.DryIoc.Avalonia
 
@@ -109,7 +95,7 @@ Install-Package Prism.DryIoc.Avalonia -Version 8.1.97.1021
 
 ## How to use
 
-See, `e2e` folder for more samples. The following is based on the "SampleBaseApp" project.
+See, `samples` folder for more samples. The following is based on the "SampleBaseApp" project.
 
 ### Program.cs
 

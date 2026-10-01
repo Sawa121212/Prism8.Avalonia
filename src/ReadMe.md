@@ -1,5 +1,5 @@
 
-Thank you for installing Prism.Avalonia v9.0!
+Thank you for installing Prism.Avalonia 8.1!
 
 ## Help Support Prism
 

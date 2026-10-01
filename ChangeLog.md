@@ -2,49 +2,6 @@
 
 Change log history for Prism.Avalonia
 
-## v9.0.537.11300-pre (2025-06-01)
-
-* Upgraded to Avalonia v11.3.0
-* .NET 9 supported
-* _Deprecation Notice: .NET Framework 4.5_
-
-## v9.0.537.11130 (2024-08-24)
-
-* Upgraded to Prism v9.0.537
-* Upgraded to Avalonia v11.1.3
-* More clear error message throwing
-* Updated end-to-end samples
-
-## v9.0.401.11110-pre (2024-08-03)
-
-* Upgraded to Avalonia v11.1.1
-* Fixed ItemsControlRegionAdapter not attaching object due to previous binding
-
-## v9.0.401.11074-pre (2024-07-26)
-
-* Prism.Core v9.0.401-pre
-* Removed dependency on Avalonia.ReactiveUI
-* Updated documentation
-* Synced with latest develop
-
-## v9.0.401.11000-pre (2024-04-28)
-
-* Fixed Prism.Core targeting v9.0.401-pre
-
-## v9.0.401.11074-pre (2024-04-13)
-
-* Fixed typos
-* DynamicallyAccessedMembers Attribute for linker hints
-* Upgraded NuGet DryIoc to 5.4.3
-
-## v9.0.271-pre (2024-04-12)
-
-* Upgraded Prism.Core to v9.0.271-pre
-* Using Prism.Container
-* Breaking Changes:
-  * `Prism.Dialog` [see PR #128](https://github.com/AvaloniaCommunity/Prism.Avalonia/pull/128)
-  * `Prism.Region` -> `Prism.Navigation.Region`
-
 ## v8.1.97.11073 (2024-04-28)
 
 * Removed dependency on Avalonia.ReactiveUI

@@ -7,7 +7,6 @@
   <Import Project="Nuget.props"/>
   <Import Project="EmbedXaml.props" />
 
-
   <ItemGroup>
     <Compile Update="Properties\Resources.Designer.cs">
       <DesignTime>True</DesignTime>
